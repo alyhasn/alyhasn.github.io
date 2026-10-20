@@ -1,0 +1,40 @@
+/* effects.css: hover, click, tilt, magnetic, cursor glow */
+section{scroll-margin-top:90px}
+header{transition:transform .45s var(--ease)}
+header.hide{transform:translateY(-120%)}
+nav a{transition:color .25s,transform .25s}
+nav a:not(.nav-cta):hover{transform:translateY(-2px)}
+
+/* 3D tilt (JS sets --rx/--ry); overrides the plain hover lift */
+.tilt,.tilt:hover{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0px));
+  transition:transform .18s ease-out,border-color .3s,box-shadow .3s}
+.tilt:hover{--ty:-6px}
+
+/* shine sweep on hover */
+.btn::before,.badge-card::before,.project-card::before,.bb-card::before,.stat-card::before{
+  content:'';position:absolute;top:0;bottom:0;left:-90%;width:50%;z-index:2;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.16),transparent);
+  transform:skewX(-20deg);transition:left .7s var(--ease)}
+.btn:hover::before,.badge-card:hover::before,.project-card:hover::before,.bb-card:hover::before,.stat-card:hover::before{left:140%}
+.badge-img img{transition:transform .4s var(--ease)}
+.badge-card:hover .badge-img img{transform:scale(1.1) rotate(-3deg)}
+
+/* click ripple */
+.btn,.filter-btn,.contact-link,nav a.nav-cta{position:relative;overflow:hidden}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);animation:rippleOut .65s ease-out forwards;pointer-events:none}
+.filter-btn:active,.contact-link:active{transform:scale(.94)}
+
+/* magnetic (uses `translate`, so it never fights transform) */
+.mag{translate:var(--tx,0px) var(--ty2,0px);transition:translate .2s ease-out,transform .25s var(--ease),border-color .25s,color .25s,box-shadow .25s}
+
+/* hero photo parallax */
+.photo-frame{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out}
+.photo-chip{transform:translate(var(--px,0px),var(--py,0px));transition:transform .3s ease-out}
+
+.cursor-glow{position:fixed;left:0;top:0;width:340px;height:340px;margin:-170px 0 0 -170px;border-radius:50%;
+  background:radial-gradient(circle,rgba(53,208,192,.13),transparent 65%);pointer-events:none;z-index:0;will-change:transform}
+.to-top{position:fixed;right:22px;bottom:22px;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);
+  background:rgba(18,26,46,.92);color:var(--cyan);cursor:pointer;z-index:800;opacity:0;pointer-events:none;
+  transform:translateY(16px) scale(.8);transition:opacity .3s,transform .35s var(--ease),border-color .25s}
+.to-top.show{opacity:1;pointer-events:auto;transform:none}
+.to-top:hover{border-color:var(--cyan);transform:translateY(-3px)}
