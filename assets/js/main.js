@@ -1,5 +1,5 @@
 /* =====================================================
-   Ali Hassan — Portfolio script (single file, replaces enhance.js)
+   Ali Hassan — Portfolio script
    Edit the DATA block below to add badges / labs / progress.
    ===================================================== */
 
@@ -19,16 +19,16 @@ var DATA = {
     }
   ],
 
-  /* Hack The Box Academy badges (earned by finishing modules).
-     TODO: check each "desc" and put the exact module name for the ones marked CHECK. */
+  /* Hack The Box Academy badges.
+     TODO: check each "desc" and put the exact reason for the ones marked CHECK. */
   academy: [
     { img: 'assets/images/badges/your-request-is-my-demand.png', name: 'Your Request Is My Demand', desc: 'Module: Web Requests' },
     { img: 'assets/images/badges/developer.png',                 name: 'Developer',                 desc: 'Module: Introduction to Web Applications' },
     { img: 'assets/images/badges/Fuzzing_guru.png',              name: 'Fuzzing Guru',              desc: 'Module: Attacking Web Applications with Ffuf' },
     { img: 'assets/images/badges/fuzzing-is-power.png',          name: 'Fuzzing Is Power',          desc: 'Module: Web Fuzzing' },
-    { img: 'assets/images/badges/academician.png',               name: 'Academician',               desc: 'Hack The Box Academy module badge' },      /* CHECK */
-    { img: 'assets/images/badges/philomath.png',                 name: 'Philomath',                 desc: 'Hack The Box Academy module badge' },      /* CHECK */
-    { img: 'assets/images/badges/Unwavering_user.png',           name: 'Unwavering User',           desc: 'Hack The Box Academy module badge' }       /* CHECK */
+    { img: 'assets/images/badges/academician.png',               name: 'Academician',               desc: 'Hack The Box Academy badge' },      /* CHECK */
+    { img: 'assets/images/badges/philomath.png',                 name: 'Philomath',                 desc: 'Hack The Box Academy badge' },      /* CHECK */
+    { img: 'assets/images/badges/Unwavering_user.png',           name: 'Unwavering User',           desc: 'Hack The Box Academy badge' }       /* CHECK */
   ],
 
   /* Lab / machine badges. Leave empty [] until you solve your first lab:
@@ -43,9 +43,19 @@ function esc(s){
   });
 }
 
+/* run fn at most once per animation frame (smooth scroll handlers) */
+function raf(f){
+  var t = 0;
+  return function(){
+    if(t) return;
+    t = 1;
+    requestAnimationFrame(function(){ t = 0; f(); });
+  };
+}
+
 function badgeHTML(b){
   return '<article class="badge-card' + (b.featured ? ' featured' : '') + '">' +
-    '<div class="badge-img"><img src="' + esc(b.img) + '" alt="' + esc(b.name) + ' badge" loading="lazy"></div>' +
+    '<div class="badge-img"><img src="' + esc(b.img) + '" alt="' + esc(b.name) + ' badge" loading="lazy" decoding="async"></div>' +
     '<div class="badge-body">' +
       '<h4 class="badge-name">' + esc(b.name) + '</h4>' +
       '<p class="badge-desc">' + esc(b.desc) + '</p>' +
@@ -79,6 +89,17 @@ function renderBadges(){
 
   var count = document.getElementById('htbCount');
   if(count) count.textContent = DATA.htb.done + ' / ' + DATA.htb.total;
+
+  /* if an image fails to load, log which file and show a medal icon instead */
+  document.querySelectorAll('.badge-img img').forEach(function(img){
+    img.addEventListener('error', function(){
+      console.warn('Badge image missing:', img.src);
+      var icon = document.createElement('i');
+      icon.className = 'fas fa-medal';
+      icon.style.cssText = 'font-size:48px;color:#8C98B8';
+      img.replaceWith(icon);
+    });
+  });
 }
 
 /* build content first so observers see it */
@@ -94,13 +115,13 @@ renderBadges();
     var max = h.scrollHeight - h.clientHeight;
     bar.style.width = (max > 0 ? h.scrollTop / max * 100 : 0) + '%';
   }
-  document.addEventListener('scroll', updateProgress, { passive:true });
+  document.addEventListener('scroll', raf(updateProgress), { passive:true });
   updateProgress();
 
   /* ---- header state ---- */
   var header = document.getElementById('siteHeader');
   function updateHeader(){ header.classList.toggle('scrolled', window.scrollY > 30); }
-  document.addEventListener('scroll', updateHeader, { passive:true });
+  document.addEventListener('scroll', raf(updateHeader), { passive:true });
   updateHeader();
 
   /* ---- mobile nav ---- */
@@ -125,7 +146,7 @@ renderBadges();
     sections.forEach(function(sec, i){ if(sec && sec.offsetTop <= pos) idx = i; });
     navLinks.forEach(function(a, i){ a.classList.toggle('active', i === idx); });
   }
-  document.addEventListener('scroll', updateActive, { passive:true });
+  document.addEventListener('scroll', raf(updateActive), { passive:true });
   updateActive();
 
   /* ---- reveal on scroll ---- */
