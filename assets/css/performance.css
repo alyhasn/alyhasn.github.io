@@ -1,0 +1,8 @@
+/* performance.css: make the page lighter on the GPU */
+.blob{filter:blur(60px);opacity:.22;will-change:transform}
+.ambient{contain:strict;transform:translateZ(0)}
+.nav-inner{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.photo-chip{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(15,22,38,.96)}
+html.paused *,html.paused *::before,html.paused *::after{animation-play-state:paused!important}
+html.hero-off .blob,html.hero-off .hero .name,html.hero-off .photo-frame,html.hero-off .photo-chip{animation-play-state:paused}
+@media (max-width:900px){.blob.b3,.cursor-glow{display:none}}
