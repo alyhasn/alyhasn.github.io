@@ -10,14 +10,15 @@ body{animation:pageIn .7s var(--ease) both}
 @keyframes ringPulse{0%{box-shadow:0 0 0 0 rgba(53,208,192,.55)}100%{box-shadow:0 0 0 14px rgba(53,208,192,0)}}
 @keyframes wobble{0%,100%{rotate:0deg}25%{rotate:-14deg}60%{rotate:10deg}}
 @keyframes rippleOut{to{transform:scale(1);opacity:0}}
+@keyframes fadeScaleIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
 
 /* staggered entrance (JS sets --i on children). backwards fill = hover still works after */
 .observe.in .stat-card,.observe.in .skill-chip,.observe.in .project-card,.observe.in .badge-card:not(.featured){
   animation:popIn .65s var(--ease) backwards;animation-delay:calc(var(--i,0)*70ms)}
-.observe.in .tl-item{animation:slideR .7s var(--ease) backwards;animation-delay:calc(var(--i,0)*130ms)}
+.observe.in .tl-item{animation:slideR .7s var(--ease) backwards;animation-delay:calc(var(--i,0)*110ms)}
 .observe.in .tl-item:nth-child(odd){animation-name:slideL}
 .about-text.in p{animation:slideL .7s var(--ease) backwards;animation-delay:calc(var(--i,0)*130ms)}
-.observe.in .tl-dot{animation:popIn .5s var(--ease) backwards;animation-delay:calc(var(--i,0)*130ms + 250ms)}
+.observe.in .tl-dot{animation:popIn .5s var(--ease) backwards;animation-delay:calc(var(--i,0)*110ms + 220ms)}
 .project-card.pop{animation:popIn .5s var(--ease) backwards;animation-delay:calc(var(--i,0)*50ms)}
 
 /* section underline grows, timeline line draws */
@@ -37,3 +38,6 @@ body{animation:pageIn .7s var(--ease) both}
 .badge-card:nth-child(3n) .badge-img img{animation-delay:-3s}
 .skill-chip:hover i{animation:wobble .6s}
 .progress-bar{box-shadow:0 0 12px rgba(53,208,192,.6)}
+
+/* mobile nav panel + backdrop fade/scale */
+.nav-backdrop.show{animation:fadeScaleIn .28s var(--ease) both}
