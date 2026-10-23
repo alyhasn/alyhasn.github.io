@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Ali Hassan — Cybersecurity Portfolio</title>
 <meta name="description" content="Ali Hassan — BS Cybersecurity student, bug bounty researcher on HackerOne, Hack The Box Academy learner.">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="theme-color" content="#0A0F1C">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/animations.css">
 <link rel="stylesheet" href="assets/css/effects.css">
@@ -28,7 +31,7 @@
 <header id="siteHeader">
   <div class="wrap nav-inner">
     <a href="#home" class="logo"><span class="dot"></span>Ali Hassan</a>
-    <nav id="siteNav">
+    <nav id="siteNav" aria-label="Primary">
       <a href="#home" class="active">Home</a>
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
@@ -37,11 +40,16 @@
       <a href="#projects">Projects</a>
       <a href="#cv">CV</a>
       <a href="#contact">Contact</a>
-      <a href="assets/docs/cv.pdf" class="nav-cta" target="_blank" rel="noopener">Resume</a>
+      <a href="assets/docs/cv.pdf" class="nav-cta" target="_blank" rel="noopener noreferrer">Resume</a>
     </nav>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="siteNav">
+      <i class="fas fa-bars" aria-hidden="true"></i>
+    </button>
   </div>
 </header>
+
+<!-- tapping/touching this blocks the page behind the open mobile menu -->
+<div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
 
 <main>
 
@@ -50,12 +58,12 @@
     <div class="wrap hero-grid">
 
       <div class="hero-text">
-        <span class="kicker reveal-up d1"><i class="fas fa-shield-halved"></i> Open to internships &amp; CTF teams</span>
+        <span class="kicker reveal-up d1"><i class="fas fa-shield-halved" aria-hidden="true"></i> Open to internships &amp; CTF teams</span>
 
         <p class="hello reveal-up d1">Hi, I'm</p>
         <h1 class="name reveal-up d2">Ali Hassan</h1>
 
-        <div class="role-line reveal-up d3"><span id="roleText">BS Cybersecurity Student</span><span class="cursor"></span></div>
+        <div class="role-line reveal-up d3"><span id="roleText">BS Cybersecurity Student</span><span class="cursor" aria-hidden="true"></span></div>
 
         <p class="tagline reveal-up d3">Breaking web apps, responsibly.</p>
 
@@ -64,17 +72,17 @@
         </p>
 
         <div class="hero-ctas reveal-up d5">
-          <a href="#badges" class="btn btn-primary"><i class="fas fa-award"></i> See my badges</a>
-          <a href="#projects" class="btn btn-ghost"><i class="fas fa-diagram-project"></i> View projects</a>
-          <a href="assets/docs/cv.pdf" class="btn btn-ghost" download><i class="fas fa-download"></i> Download CV</a>
+          <a href="#badges" class="btn btn-primary"><i class="fas fa-award" aria-hidden="true"></i> See my badges</a>
+          <a href="#projects" class="btn btn-ghost"><i class="fas fa-diagram-project" aria-hidden="true"></i> View projects</a>
+          <a href="assets/docs/cv.pdf" class="btn btn-ghost" download><i class="fas fa-download" aria-hidden="true"></i> Download CV</a>
         </div>
 
         <div class="social-row reveal-up d5">
-          <a href="https://github.com/alyhasn" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/alyhasn" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="https://hackerone.com/alyhasn?type=user" target="_blank" rel="noopener" aria-label="HackerOne"><i class="fas fa-bug"></i></a>
-          <a href="https://profile.hackthebox.com/profile/019f0f6d-dca3-722c-98c7-1a443e935b9d" target="_blank" rel="noopener" aria-label="Hack The Box"><i class="fas fa-square-h"></i></a>
-          <a href="mailto:alyhsan.x@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          <a href="https://github.com/alyhasn" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+          <a href="https://www.linkedin.com/in/alyhasn" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+          <a href="https://hackerone.com/alyhasn?type=user" target="_blank" rel="noopener noreferrer" aria-label="HackerOne"><i class="fas fa-bug" aria-hidden="true"></i></a>
+          <a href="https://profile.hackthebox.com/profile/019f0f6d-dca3-722c-98c7-1a443e935b9d" target="_blank" rel="noopener noreferrer" aria-label="Hack The Box"><i class="fas fa-square-h" aria-hidden="true"></i></a>
+          <a href="mailto:alyhsan.x@gmail.com" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
         </div>
       </div>
 
@@ -85,8 +93,8 @@
                width="500" height="500"
                onerror="this.onerror=null;this.src='assets/images/avatar_1_solo.jpg';">
         </div>
-        <div class="photo-chip chip-h1"><i class="fas fa-bug"></i> HackerOne Milestone · Level 1</div>
-        <div class="photo-chip chip-htb"><i class="fas fa-square-h"></i> <span id="chipHtb">HTB Academy</span></div>
+        <div class="photo-chip chip-h1"><i class="fas fa-bug" aria-hidden="true"></i> HackerOne Milestone · Level 1</div>
+        <div class="photo-chip chip-htb"><i class="fas fa-square-h" aria-hidden="true"></i> <span id="chipHtb">HTB Academy</span></div>
       </div>
 
     </div>
@@ -102,14 +110,14 @@
       <div class="about-layout">
         <div class="about-text observe">
           <p>I'm a BS Cybersecurity student at the University of Central Punjab, Lahore, focused on manual web application testing: broken access control, business logic flaws, authentication and authorization issues, and GraphQL vulnerabilities.</p>
-          <p>I'm working through Hack The Box Academy and hold an active HackerOne account, researching across several public bug bounty programs.</p>
+          <p>I'm working through Hack The Box Academy and hold an active HackerOne account, researching across several public bug bounty programs including Agoda, Whatnot, Playtika, Anduril Industries, Temu, Unico IDtech, CoinMate, and Shopify.</p>
           <p class="muted">Long-term, I'm aiming for an MS in Cyber Security, with penetration testing as my intended career path.</p>
         </div>
         <div class="stat-grid observe">
-          <div class="stat-card"><div class="stat-num" data-count="4">0</div><div class="stat-label">HackerOne reports</div></div>
+          <div class="stat-card"><div class="stat-num" data-count="20">0</div><div class="stat-label">HackerOne reports</div><div class="stat-note">Duplicate + Informative</div></div>
           <div class="stat-card"><div class="stat-num" data-count="9">0</div><div class="stat-label">Academic projects</div></div>
           <div class="stat-card"><div class="stat-num" data-count="6">0</div><div class="stat-label">HTB modules done</div></div>
-          <div class="stat-card"><div class="stat-num" data-count="4">0</div><div class="stat-label">Platforms hunted</div></div>
+          <div class="stat-card"><div class="stat-num" data-count="8">0</div><div class="stat-label">Programs hunted</div></div>
         </div>
       </div>
     </div>
@@ -122,14 +130,14 @@
         <h2 class="section-title">Languages &amp; tools</h2>
       </div>
       <div class="skills-grid observe">
-  <div class="skill-chip"><i class="fas fa-code"></i><span>C++</span></div>
-  <div class="skill-chip"><i class="fab fa-python"></i><span>Python</span></div>
-  <div class="skill-chip"><i class="fab fa-html5"></i><span>HTML</span></div>
-  <div class="skill-chip"><i class="fas fa-microchip"></i><span>Assembly (x86)</span></div>
-  <div class="skill-chip"><i class="fas fa-terminal"></i><span>Bash</span></div>
-  <div class="skill-chip"><i class="fab fa-php"></i><span>PHP</span></div>
-  <div class="skill-chip"><i class="fas fa-database"></i><span>SQL</span></div>
-       </div>
+        <div class="skill-chip"><i class="fas fa-code" aria-hidden="true"></i><span>C++</span></div>
+        <div class="skill-chip"><i class="fab fa-python" aria-hidden="true"></i><span>Python</span></div>
+        <div class="skill-chip"><i class="fab fa-html5" aria-hidden="true"></i><span>HTML</span></div>
+        <div class="skill-chip"><i class="fas fa-microchip" aria-hidden="true"></i><span>Assembly (x86)</span></div>
+        <div class="skill-chip"><i class="fas fa-terminal" aria-hidden="true"></i><span>Bash</span></div>
+        <div class="skill-chip"><i class="fab fa-php" aria-hidden="true"></i><span>PHP</span></div>
+        <div class="skill-chip"><i class="fas fa-database" aria-hidden="true"></i><span>SQL</span></div>
+      </div>
     </div>
   </section>
 
@@ -138,10 +146,18 @@
     <div class="wrap">
       <div class="section-head observe">
         <h2 class="section-title">Bug bounty experience</h2>
-        <p class="section-sub">Independently discovered reports, closed as duplicate or informative. They still confirm the vulnerability classes were real, even where another researcher got there first.</p>
+        <p class="section-sub">20 reports submitted across 8 public programs. Shown below are the ones closed as Duplicate or Informative — each still confirms the vulnerability class was real, even where another researcher got there first or the program didn't see a demonstrated security impact.</p>
+      </div>
+
+      <div class="bb-summary observe">
+        <div class="mini"><b>20</b>&nbsp;reports submitted</div>
+        <div class="mini"><span class="sw-dup"></span> <b>6</b>&nbsp;Duplicate</div>
+        <div class="mini"><span class="sw-info"></span> <b>6</b>&nbsp;Informative</div>
+        <div class="mini"><b>8</b>&nbsp;programs</div>
       </div>
 
       <div class="timeline observe">
+
         <div class="tl-item">
           <div class="tl-dot"></div>
           <div class="bb-card">
@@ -149,10 +165,11 @@
               <span class="bb-target">Agoda</span>
               <span class="bb-status duplicate">Duplicate</span>
             </div>
-            <p class="bb-finding">Reflected XSS via the <code>campaignName</code> parameter on the payment endpoint, leading to session/account cookie disclosure.</p>
+            <p class="bb-finding">Reflected XSS confirmed across multiple parameters on the booking and payment flow (<code>campaignName</code>, <code>callback</code>, <code>promotionCode</code>, <code>pushId</code>, <code>publisher</code>, <code>roomName</code>) on <code>/book/</code> and <code>/book/payment/</code> — each reflecting unsanitized input and exposing session/account cookies via <code>document.cookie</code>.</p>
             <div class="bb-tags"><span class="bb-tag">XSS</span><span class="bb-tag">CWE-79</span><span class="bb-tag">Session Security</span></div>
           </div>
         </div>
+
         <div class="tl-item">
           <div class="tl-dot"></div>
           <div class="bb-card">
@@ -160,10 +177,11 @@
               <span class="bb-target">Unico IDtech</span>
               <span class="bb-status duplicate">Duplicate</span>
             </div>
-            <p class="bb-finding">Unauthenticated public access to Firebase Storage buckets (DEV + PROD), allowing enumeration and download of internal files, including a private APK.</p>
+            <p class="bb-finding">Unauthenticated public access to Firebase Storage buckets (DEV + PROD), allowing enumeration and download of 294 internal files, including a private APK.</p>
             <div class="bb-tags"><span class="bb-tag">Broken Access Control</span><span class="bb-tag">Cloud Misconfiguration</span></div>
           </div>
         </div>
+
         <div class="tl-item">
           <div class="tl-dot"></div>
           <div class="bb-card">
@@ -171,10 +189,47 @@
               <span class="bb-target">Temu</span>
               <span class="bb-status duplicate">Duplicate</span>
             </div>
-            <p class="bb-finding">Pre-existing sessions not invalidated after 2FA enrollment and password reset, allowing persistent unauthorized access.</p>
+            <p class="bb-finding">Pre-existing sessions not invalidated after 2FA enrollment and password reset, allowing persistent unauthorized access even after a victim secures their account.</p>
             <div class="bb-tags"><span class="bb-tag">Broken Authentication</span><span class="bb-tag">Session Management</span></div>
           </div>
         </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="bb-card">
+            <div class="bb-head">
+              <span class="bb-target">Whatnot</span>
+              <span class="bb-status duplicate">Duplicate</span>
+            </div>
+            <p class="bb-finding">Unauthenticated GraphQL <code>users</code> query with no rate limiting, exposing 55.7M user records via cursor-based pagination — confirmed live and growing in real time.</p>
+            <div class="bb-tags"><span class="bb-tag">Broken Access Control</span><span class="bb-tag">GraphQL</span><span class="bb-tag">Data Exposure</span></div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="bb-card">
+            <div class="bb-head">
+              <span class="bb-target">Playtika</span>
+              <span class="bb-status duplicate">Duplicate</span>
+            </div>
+            <p class="bb-finding">10 corporate subdomains affected by dangling CNAME records pointing to an unclaimed GitHub organization, enabling full subdomain takeover of internal tooling and documentation portals.</p>
+            <div class="bb-tags"><span class="bb-tag">Subdomain Takeover</span><span class="bb-tag">DNS Misconfiguration</span></div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="bb-card">
+            <div class="bb-head">
+              <span class="bb-target">Anduril Industries</span>
+              <span class="bb-status duplicate">Duplicate</span>
+            </div>
+            <p class="bb-finding">Missing rate limiting on a developer sandbox login endpoint — 50 consecutive failed attempts all returned HTTP 200 with no lockout, enabling unrestricted brute-force and credential stuffing.</p>
+            <div class="bb-tags"><span class="bb-tag">Broken Authentication</span><span class="bb-tag">Rate Limiting</span></div>
+          </div>
+        </div>
+
         <div class="tl-item informative">
           <div class="tl-dot"></div>
           <div class="bb-card">
@@ -182,10 +237,71 @@
               <span class="bb-target">Shopify</span>
               <span class="bb-status informative">Informative</span>
             </div>
-            <p class="bb-finding">Bypass of a restricted keyword filter in a business name field via Unicode homoglyphs, enabling visual impersonation of a protected brand name.</p>
+            <p class="bb-finding">Bypass of a restricted keyword filter in a business name field via Unicode homoglyphs, enabling visual impersonation of a protected brand name on the Partners platform.</p>
             <div class="bb-tags"><span class="bb-tag">Business Logic Errors</span><span class="bb-tag">Input Validation</span></div>
           </div>
         </div>
+
+        <div class="tl-item informative">
+          <div class="tl-dot"></div>
+          <div class="bb-card">
+            <div class="bb-head">
+              <span class="bb-target">CoinMate</span>
+              <span class="bb-status informative">Informative</span>
+            </div>
+            <p class="bb-finding">Stored XSS via unsanitized registration fields (<code>referralCode</code>, <code>affiliateCode</code>, <code>clickId</code>, <code>locale</code>) accepted and persisted by the sign-up endpoint with no server-side validation error.</p>
+            <div class="bb-tags"><span class="bb-tag">XSS</span><span class="bb-tag">Input Validation</span></div>
+          </div>
+        </div>
+
+        <div class="tl-item informative">
+          <div class="tl-dot"></div>
+          <div class="bb-card">
+            <div class="bb-head">
+              <span class="bb-target">Whatnot</span>
+              <span class="bb-status informative">Informative</span>
+            </div>
+            <p class="bb-finding">CORS misconfiguration on the GraphQL endpoint reflecting any <code>*.whatnot.com</code> subdomain in <code>Access-Control-Allow-Origin</code> with credentials enabled, allowing authenticated PII disclosure via subdomain origin reflection.</p>
+            <div class="bb-tags"><span class="bb-tag">CORS Misconfiguration</span><span class="bb-tag">PII Disclosure</span></div>
+          </div>
+        </div>
+
+        <div class="tl-item informative">
+          <div class="tl-dot"></div>
+          <div class="bb-card">
+            <div class="bb-head">
+              <span class="bb-target">Playtika</span>
+              <span class="bb-status informative">Informative</span>
+            </div>
+            <p class="bb-finding">Missing GitHub Pages domain verification on the corporate domain — the root configuration gap that enabled subdomain takeover across the GitHub Pages–linked subdomains.</p>
+            <div class="bb-tags"><span class="bb-tag">Misconfiguration</span><span class="bb-tag">DNS</span></div>
+          </div>
+        </div>
+
+        <div class="tl-item informative">
+          <div class="tl-dot"></div>
+          <div class="bb-card">
+            <div class="bb-head">
+              <span class="bb-target">Playtika</span>
+              <span class="bb-status informative">Informative</span>
+            </div>
+            <p class="bb-finding">Subdomain takeover confirmed on a corporate IT services subdomain, with GitHub returning "domain already taken" — indicating the subdomain had already been claimed by an unrelated party.</p>
+            <div class="bb-tags"><span class="bb-tag">Subdomain Takeover</span></div>
+          </div>
+        </div>
+
+        <div class="tl-item informative">
+          <div class="tl-dot"></div>
+          <div class="bb-card">
+            <div class="bb-head">
+              <span class="bb-target">Anduril Industries</span>
+              <span class="bb-status informative">Informative</span>
+            </div>
+            <p class="bb-finding">Internal RFC 1918 IP addresses disclosed via public DNS records across 25+ subdomains, revealing internal network topology for services including Vault, GitHub Enterprise, and CI/CD tooling.</p>
+            <div class="bb-tags"><span class="bb-tag">Information Disclosure</span><span class="bb-tag">Reconnaissance</span></div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -201,7 +317,7 @@
       <!-- HackerOne (featured) -->
       <div class="badge-group observe">
         <div class="group-head">
-          <h3><i class="fas fa-bug"></i> HackerOne</h3>
+          <h3><i class="fas fa-bug" aria-hidden="true"></i> HackerOne</h3>
           <span class="source-pill h1">Earned on HackerOne</span>
         </div>
         <div class="badge-grid featured" id="h1Badges"></div>
@@ -210,7 +326,7 @@
       <!-- HTB Academy -->
       <div class="badge-group observe">
         <div class="group-head">
-          <h3><i class="fas fa-graduation-cap"></i> Hack The Box Academy</h3>
+          <h3><i class="fas fa-graduation-cap" aria-hidden="true"></i> Hack The Box Academy</h3>
           <span class="source-pill htb">Earned on Hack The Box Academy</span>
         </div>
         <div class="htb-progress">
@@ -235,7 +351,7 @@
       <!-- Labs -->
       <div class="badge-group observe">
         <div class="group-head">
-          <h3><i class="fas fa-flask"></i> Labs &amp; machines</h3>
+          <h3><i class="fas fa-flask" aria-hidden="true"></i> Labs &amp; machines</h3>
           <span class="source-pill labs">Next up</span>
         </div>
         <div class="badge-grid" id="labBadges"></div>
@@ -250,12 +366,12 @@
         <h2 class="section-title">University projects</h2>
       </div>
 
-      <div class="filter-row observe" id="filterRow">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="security">Security</button>
-        <button class="filter-btn" data-filter="web">Web</button>
-        <button class="filter-btn" data-filter="systems">Systems / DSA</button>
-        <button class="filter-btn" data-filter="embedded">Embedded</button>
+      <div class="filter-row observe" id="filterRow" role="tablist" aria-label="Filter projects">
+        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All</button>
+        <button class="filter-btn" data-filter="security" role="tab" aria-selected="false">Security</button>
+        <button class="filter-btn" data-filter="web" role="tab" aria-selected="false">Web</button>
+        <button class="filter-btn" data-filter="systems" role="tab" aria-selected="false">Systems / DSA</button>
+        <button class="filter-btn" data-filter="embedded" role="tab" aria-selected="false">Embedded</button>
       </div>
 
       <div class="project-grid observe" id="projectGrid">
@@ -343,12 +459,12 @@
       </div>
       <div class="cv-card observe">
         <div class="cv-actions">
-          <a href="assets/docs/cv.pdf" class="btn btn-primary" download><i class="fas fa-download"></i> Download CV (PDF)</a>
-          <a href="assets/docs/cv.pdf" class="btn btn-ghost" target="_blank" rel="noopener"><i class="fas fa-up-right-from-square"></i> Open in new tab</a>
-          <button class="btn btn-ghost" id="cvToggle" type="button" aria-expanded="false"><i class="fas fa-eye"></i> <span>Preview here</span></button>
+          <a href="assets/docs/cv.pdf" class="btn btn-primary" download><i class="fas fa-download" aria-hidden="true"></i> Download CV (PDF)</a>
+          <a href="assets/docs/cv.pdf" class="btn btn-ghost" target="_blank" rel="noopener noreferrer"><i class="fas fa-up-right-from-square" aria-hidden="true"></i> Open in new tab</a>
+          <button class="btn btn-ghost" id="cvToggle" type="button" aria-expanded="false"><i class="fas fa-eye" aria-hidden="true"></i> <span>Preview here</span></button>
         </div>
         <div class="cv-preview" id="cvPreview" hidden>
-          <iframe id="cvFrame" title="Ali Hassan CV" data-src="assets/docs/cv.pdf#view=FitH"></iframe>
+          <iframe id="cvFrame" title="Ali Hassan CV" data-src="assets/docs/cv.pdf#view=FitH" referrerpolicy="no-referrer" loading="lazy"></iframe>
         </div>
       </div>
     </div>
@@ -361,11 +477,11 @@
         <h2>Let's talk security</h2>
         <p>Open to internships, CTF collaborations, and bug bounty conversations. Reach out through any of these.</p>
         <div class="contact-links">
-          <a class="contact-link" href="mailto:alyhsan.x@gmail.com"><i class="fas fa-envelope"></i> alyhsan.x@gmail.com</a>
-          <a class="contact-link" href="https://hackerone.com/alyhasn?type=user" target="_blank" rel="noopener"><i class="fas fa-bug"></i> HackerOne</a>
-          <a class="contact-link" href="https://profile.hackthebox.com/profile/019f0f6d-dca3-722c-98c7-1a443e935b9d" target="_blank" rel="noopener"><i class="fas fa-square-h"></i> Hack The Box</a>
-          <a class="contact-link" href="https://github.com/alyhasn" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
-          <a class="contact-link" href="https://www.linkedin.com/in/alyhasn" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> LinkedIn</a>
+          <a class="contact-link" href="mailto:alyhsan.x@gmail.com"><i class="fas fa-envelope" aria-hidden="true"></i> alyhsan.x@gmail.com</a>
+          <a class="contact-link" href="https://hackerone.com/alyhasn?type=user" target="_blank" rel="noopener noreferrer"><i class="fas fa-bug" aria-hidden="true"></i> HackerOne</a>
+          <a class="contact-link" href="https://profile.hackthebox.com/profile/019f0f6d-dca3-722c-98c7-1a443e935b9d" target="_blank" rel="noopener noreferrer"><i class="fas fa-square-h" aria-hidden="true"></i> Hack The Box</a>
+          <a class="contact-link" href="https://github.com/alyhasn" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a>
+          <a class="contact-link" href="https://www.linkedin.com/in/alyhasn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
         </div>
       </div>
     </div>
@@ -374,10 +490,10 @@
 </main>
 
 <footer>Built on GitHub Pages.</footer>
-  
+
 <script defer src="assets/js/main.js"></script>
 <script defer src="assets/js/animations.js"></script>
 <script defer src="assets/js/effects.js"></script>
-  
+
 </body>
 </html>
