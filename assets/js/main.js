@@ -19,20 +19,18 @@ var DATA = {
     }
   ],
 
-  /* Hack The Box Academy badges.
-     TODO: check each "desc" and put the exact reason for the ones marked CHECK. */
+  /* Hack The Box Academy badges. */
   academy: [
     { img: 'assets/images/badges/your-request-is-my-demand.png', name: 'Your Request Is My Demand', desc: 'Module: Web Requests' },
     { img: 'assets/images/badges/developer.png',                 name: 'Developer',                 desc: 'Module: Introduction to Web Applications' },
     { img: 'assets/images/badges/Fuzzing_guru.png',              name: 'Fuzzing Guru',              desc: 'Module: Attacking Web Applications with Ffuf' },
     { img: 'assets/images/badges/fuzzing-is-power.png',          name: 'Fuzzing Is Power',          desc: 'Module: Web Fuzzing' },
-    { img: 'assets/images/badges/academician.png',               name: 'Academician',               desc: 'Hack The Box Academy badge' },      /* CHECK */
-    { img: 'assets/images/badges/philomath.png',                 name: 'Philomath',                 desc: 'Hack The Box Academy badge' },      /* CHECK */
-    { img: 'assets/images/badges/Unwavering_user.png',           name: 'Unwavering User',           desc: 'Hack The Box Academy badge' }       /* CHECK */
+    { img: 'assets/images/badges/academician.png',               name: 'Academician',               desc: 'Hack The Box Academy badge' },
+    { img: 'assets/images/badges/philomath.png',                 name: 'Philomath',                 desc: 'Hack The Box Academy badge' },
+    { img: 'assets/images/badges/Unwavering_user.png',           name: 'Unwavering User',           desc: 'Hack The Box Academy badge' }
   ],
 
-  /* Lab / machine badges. Leave empty [] until you solve your first lab:
-     { img:'assets/images/badges/labs/xyz.png', name:'Lab name', desc:'Short note', meta:'Solved Nov 2026' } */
+  /* Lab / machine badges. Leave empty [] until the first lab is solved. */
   labs: []
 };
 
@@ -65,7 +63,7 @@ function badgeHTML(b){
 
 function lockedHTML(text){
   return '<article class="badge-card locked">' +
-    '<div class="badge-img"><i class="fas fa-lock"></i></div>' +
+    '<div class="badge-img"><i class="fas fa-lock" aria-hidden="true"></i></div>' +
     '<h4 class="badge-name">Not earned yet</h4>' +
     '<p class="badge-desc">' + esc(text) + '</p></article>';
 }
@@ -90,12 +88,12 @@ function renderBadges(){
   var count = document.getElementById('htbCount');
   if(count) count.textContent = DATA.htb.done + ' / ' + DATA.htb.total;
 
-  /* if an image fails to load, log which file and show a medal icon instead */
+  /* if a badge image fails to load, show a medal icon instead (no broken-image icon) */
   document.querySelectorAll('.badge-img img').forEach(function(img){
     img.addEventListener('error', function(){
-      console.warn('Badge image missing:', img.src);
       var icon = document.createElement('i');
       icon.className = 'fas fa-medal';
+      icon.setAttribute('aria-hidden', 'true');
       icon.style.cssText = 'font-size:48px;color:#8C98B8';
       img.replaceWith(icon);
     });
@@ -124,19 +122,41 @@ renderBadges();
   document.addEventListener('scroll', raf(updateHeader), { passive:true });
   updateHeader();
 
-  /* ---- mobile nav ---- */
+  /* ---- mobile nav: open/close with a real backdrop + body scroll lock ----
+     Fixes the bug where the page behind the menu stayed scrollable/touchable. */
   var toggle = document.getElementById('navToggle');
   var nav = document.getElementById('siteNav');
+  var backdrop = document.getElementById('navBackdrop');
+  var html = document.documentElement;
+
+  function openNav(){
+    nav.classList.add('open');
+    backdrop.classList.add('show');
+    html.classList.add('nav-locked');
+    toggle.querySelector('i').className = 'fas fa-xmark';
+    toggle.setAttribute('aria-expanded', 'true');
+  }
+  function closeNav(){
+    nav.classList.remove('open');
+    backdrop.classList.remove('show');
+    html.classList.remove('nav-locked');
+    toggle.querySelector('i').className = 'fas fa-bars';
+    toggle.setAttribute('aria-expanded', 'false');
+  }
   toggle.addEventListener('click', function(){
-    nav.classList.toggle('open');
-    toggle.querySelector('i').className = nav.classList.contains('open') ? 'fas fa-xmark' : 'fas fa-bars';
+    nav.classList.contains('open') ? closeNav() : openNav();
+  });
+  backdrop.addEventListener('click', closeNav);          /* tap outside closes it */
+  document.addEventListener('keydown', function(e){       /* Escape closes it */
+    if(e.key === 'Escape' && nav.classList.contains('open')) closeNav();
   });
   nav.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){
-      nav.classList.remove('open');
-      toggle.querySelector('i').className = 'fas fa-bars';
-    });
+    a.addEventListener('click', closeNav);                /* picking a link closes it */
   });
+  /* if the viewport grows back to desktop width while the menu is open, reset state */
+  window.addEventListener('resize', raf(function(){
+    if(window.innerWidth > 980 && nav.classList.contains('open')) closeNav();
+  }));
 
   /* ---- active link on scroll ---- */
   var navLinks = Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]'));
@@ -213,6 +233,8 @@ renderBadges();
       }
       setTimeout(typeLoop, deleting ? 35 : 65);
     })();
+  } else if (roleEl){
+    roleEl.textContent = roles[0];
   }
 
   /* ---- project filter ---- */
@@ -220,8 +242,9 @@ renderBadges();
   var cards = document.querySelectorAll('.project-card');
   filterBtns.forEach(function(btn){
     btn.addEventListener('click', function(){
-      filterBtns.forEach(function(b){ b.classList.remove('active'); });
+      filterBtns.forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
       btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
       var f = btn.getAttribute('data-filter');
       cards.forEach(function(card){
         card.classList.toggle('hide', !(f === 'all' || card.getAttribute('data-cat') === f));
