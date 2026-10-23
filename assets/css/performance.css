@@ -6,3 +6,4 @@
 html.paused *,html.paused *::before,html.paused *::after{animation-play-state:paused!important}
 html.hero-off .blob,html.hero-off .hero .name,html.hero-off .photo-frame,html.hero-off .photo-chip{animation-play-state:paused}
 @media (max-width:900px){.blob.b3,.cursor-glow{display:none}}
+@media (max-width:980px){.cursor-glow{display:none}}
