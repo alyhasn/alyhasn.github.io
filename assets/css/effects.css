@@ -1,9 +1,9 @@
 /* effects.css: hover, click, tilt, magnetic, cursor glow */
-section{scroll-margin-top:90px}
 header{transition:transform .45s var(--ease)}
 header.hide{transform:translateY(-120%)}
-nav a{transition:color .25s,transform .25s}
+nav a{transition:color .25s,transform .25s,background .25s}
 nav a:not(.nav-cta):hover{transform:translateY(-2px)}
+@media (max-width:980px){ nav a:not(.nav-cta):hover{ transform:none; } }
 
 /* 3D tilt (JS sets --rx/--ry); overrides the plain hover lift */
 .tilt,.tilt:hover{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0px));
@@ -38,3 +38,7 @@ nav a:not(.nav-cta):hover{transform:translateY(-2px)}
   transform:translateY(16px) scale(.8);transition:opacity .3s,transform .35s var(--ease),border-color .25s}
 .to-top.show{opacity:1;pointer-events:auto;transform:none}
 .to-top:hover{border-color:var(--cyan);transform:translateY(-3px)}
+
+/* mobile nav toggle icon micro-interaction */
+.nav-toggle i{transition:transform .25s var(--ease)}
+.nav-toggle[aria-expanded="true"] i{transform:rotate(90deg)}
