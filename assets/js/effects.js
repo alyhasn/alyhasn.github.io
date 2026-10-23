@@ -14,10 +14,11 @@
     t.appendChild(d);setTimeout(function(){d.remove();},700);
   },{passive:true});
 
-  /* back-to-top + hide header on scroll down (one rAF-throttled listener) */
+  /* back-to-top + hide header on scroll down (one rAF-throttled listener).
+     Header never hides while the mobile menu is open, so the close button stays reachable. */
   var top=document.createElement('button');
   top.className='to-top';top.setAttribute('aria-label','Back to top');
-  top.innerHTML='<i class="fas fa-arrow-up"></i>';
+  top.innerHTML='<i class="fas fa-arrow-up" aria-hidden="true"></i>';
   top.onclick=function(){scrollTo({top:0,behavior:'smooth'});};
   document.body.appendChild(top);
   var header=document.getElementById('siteHeader'),nav=document.getElementById('siteNav'),last=0,tick=false;
