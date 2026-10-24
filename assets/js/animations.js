@@ -1,7 +1,8 @@
 /* animations.js: stagger indexes, filter re-animation, pause offscreen work */
 (function(){
   var $=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s));};
-  ['.stat-grid','.skills-grid','.project-grid','.badge-grid','.timeline','.about-text'].forEach(function(sel){
+
+  ['.stat-grid','.skills-grid','.project-grid','.badge-grid','.timeline','.about-text','.approach-grid','.now-grid'].forEach(function(sel){
     $(sel).forEach(function(g){Array.prototype.forEach.call(g.children,function(c,i){c.style.setProperty('--i',i);});});
   });
 
@@ -18,12 +19,17 @@
 
   var root=document.documentElement;
   document.addEventListener('visibilitychange',function(){root.classList.toggle('paused',document.hidden);});
+
   var hero=document.getElementById('home');
   if(hero&&'IntersectionObserver' in window){
     new IntersectionObserver(function(e){root.classList.toggle('hero-off',!e[0].isIntersecting);}).observe(hero);
   }
 
-  /* safety net: never leave a visible section hidden */
+  /* idle badge/photo animation is paused while any overlay is open via the
+     .overlay-locked class that main.js already toggles on <html> — handled
+     entirely in performance.css, no extra observer needed here */
+
+  /* safety net: never leave a visible section hidden if an observer was missed */
   setTimeout(function(){
     $('.observe:not(.in)').forEach(function(el){
       if(el.getBoundingClientRect().top<window.innerHeight) el.classList.add('in');
