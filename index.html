@@ -8,6 +8,9 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="theme-color" content="#0A0F1C">
+<meta property="og:title" content="Ali Hassan — Cybersecurity Portfolio">
+<meta property="og:description" content="BS Cybersecurity student · Bug bounty researcher on HackerOne · Hack The Box Academy learner.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -18,6 +21,17 @@
 <link rel="stylesheet" href="assets/css/performance.css">
 </head>
 <body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div id="preloader" aria-hidden="true">
+  <div class="pre-ring"></div>
+  <div class="pre-mark">loading portfolio…</div>
+  <div class="pre-bar"><i></i></div>
+</div>
+
+<div id="confettiLayer" aria-hidden="true"></div>
+<div id="toastStack" aria-live="polite"></div>
 
 <div class="progress-bar" id="progressBar"></div>
 
@@ -35,6 +49,7 @@
       <a href="#home" class="active">Home</a>
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
+      <a href="#approach">Approach</a>
       <a href="#bugbounty">Bug Bounty</a>
       <a href="#badges">Badges</a>
       <a href="#projects">Projects</a>
@@ -42,16 +57,37 @@
       <a href="#contact">Contact</a>
       <a href="assets/docs/cv.pdf" class="nav-cta" target="_blank" rel="noopener noreferrer">Resume</a>
     </nav>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="siteNav">
-      <i class="fas fa-bars" aria-hidden="true"></i>
-    </button>
+    <div class="nav-tools">
+      <button class="icon-btn cmdk-trigger" data-cmdk-open aria-label="Open command palette (Ctrl+K)" title="Search (Ctrl+K)">
+        <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+      </button>
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle light / dark theme" title="Toggle theme">
+        <i class="fas fa-moon" aria-hidden="true"></i>
+        <i class="fas fa-sun" aria-hidden="true"></i>
+      </button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="siteNav">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+      </button>
+    </div>
   </div>
 </header>
 
 <!-- tapping/touching this blocks the page behind the open mobile menu -->
 <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
 
-<main>
+<!-- desktop-only right-edge quick nav -->
+<nav class="dot-nav" aria-label="Section quick navigation">
+  <button data-target="#home" data-label="Home" class="active" aria-label="Go to Home"></button>
+  <button data-target="#about" data-label="About" aria-label="Go to About"></button>
+  <button data-target="#skills" data-label="Skills" aria-label="Go to Skills"></button>
+  <button data-target="#approach" data-label="Approach" aria-label="Go to Approach"></button>
+  <button data-target="#bugbounty" data-label="Bug Bounty" aria-label="Go to Bug Bounty"></button>
+  <button data-target="#badges" data-label="Badges" aria-label="Go to Badges"></button>
+  <button data-target="#projects" data-label="Projects" aria-label="Go to Projects"></button>
+  <button data-target="#contact" data-label="Contact" aria-label="Go to Contact"></button>
+</nav>
+
+<main id="main">
 
   <!-- ================= HERO ================= -->
   <section class="hero" id="home">
@@ -71,18 +107,25 @@
           I study at the University of Central Punjab, Lahore. In my spare time I hunt for real vulnerabilities on HackerOne and work through Hack The Box Academy, focused on access control, auth flaws and client-side injection.
         </p>
 
+        <div class="hero-term reveal-up d4" aria-hidden="true">
+          <span class="tline muted-t">$ whoami</span>
+          <span class="tline">ali_hassan — <b>cybersecurity student</b> · <b>bug bounty researcher</b></span>
+          <span class="tline muted-t">$ cat focus.txt</span>
+          <span class="tline">access control · auth flaws · GraphQL · client-side injection</span>
+        </div>
+
         <div class="hero-ctas reveal-up d5">
           <a href="#badges" class="btn btn-primary"><i class="fas fa-award" aria-hidden="true"></i> See my badges</a>
           <a href="#projects" class="btn btn-ghost"><i class="fas fa-diagram-project" aria-hidden="true"></i> View projects</a>
           <a href="assets/docs/cv.pdf" class="btn btn-ghost" download><i class="fas fa-download" aria-hidden="true"></i> Download CV</a>
         </div>
 
-        <div class="social-row reveal-up d5">
+        <div class="social-row reveal-up d6">
           <a href="https://github.com/alyhasn" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
           <a href="https://www.linkedin.com/in/alyhasn" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
           <a href="https://hackerone.com/alyhasn?type=user" target="_blank" rel="noopener noreferrer" aria-label="HackerOne"><i class="fas fa-bug" aria-hidden="true"></i></a>
           <a href="https://profile.hackthebox.com/profile/019f0f6d-dca3-722c-98c7-1a443e935b9d" target="_blank" rel="noopener noreferrer" aria-label="Hack The Box"><i class="fas fa-square-h" aria-hidden="true"></i></a>
-          <a href="mailto:alyhsan.x@gmail.com" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+          <button data-copy="alyhsan.x@gmail.com" aria-label="Copy email address" title="Copy email"><i class="fas fa-envelope" aria-hidden="true"></i></button>
         </div>
       </div>
 
@@ -98,12 +141,14 @@
       </div>
 
     </div>
+    <a href="#about" class="scroll-cue" aria-label="Scroll to About section">SCROLL<i class="fas fa-chevron-down" aria-hidden="true"></i></a>
   </section>
 
   <!-- ================= ABOUT ================= -->
   <section id="about">
     <div class="wrap">
       <div class="section-head observe">
+        <span class="section-eyebrow">01 · Profile</span>
         <h2 class="section-title">About me</h2>
         <p class="section-sub">What I study, what I hunt, where I'm headed.</p>
       </div>
@@ -112,6 +157,11 @@
           <p>I'm a BS Cybersecurity student at the University of Central Punjab, Lahore, focused on manual web application testing: broken access control, business logic flaws, authentication and authorization issues, and GraphQL vulnerabilities.</p>
           <p>I'm working through Hack The Box Academy and hold an active HackerOne account, researching across several public bug bounty programs including Agoda, Whatnot, Playtika, Anduril Industries, Temu, Unico IDtech, CoinMate, and Shopify.</p>
           <p class="muted">Long-term, I'm aiming for an MS in Cyber Security, with penetration testing as my intended career path.</p>
+
+          <div class="competency-block">
+            <div class="competency-title">Core competencies</div>
+            <div id="competencyBars"></div>
+          </div>
         </div>
         <div class="stat-grid observe">
           <div class="stat-card"><div class="stat-num" data-count="20">0</div><div class="stat-label">HackerOne reports</div><div class="stat-note">Duplicate + Informative</div></div>
@@ -127,6 +177,7 @@
   <section id="skills">
     <div class="wrap">
       <div class="section-head observe">
+        <span class="section-eyebrow">02 · Toolkit</span>
         <h2 class="section-title">Languages &amp; tools</h2>
       </div>
       <div class="skills-grid observe">
@@ -137,6 +188,25 @@
         <div class="skill-chip"><i class="fas fa-terminal" aria-hidden="true"></i><span>Bash</span></div>
         <div class="skill-chip"><i class="fab fa-php" aria-hidden="true"></i><span>PHP</span></div>
         <div class="skill-chip"><i class="fas fa-database" aria-hidden="true"></i><span>SQL</span></div>
+        <div class="skill-chip"><i class="fas fa-spider" aria-hidden="true"></i><span>Burp Suite</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= APPROACH / METHODOLOGY ================= -->
+  <section id="approach">
+    <div class="wrap">
+      <div class="section-head observe">
+        <span class="section-eyebrow">03 · Process</span>
+        <h2 class="section-title">How I test</h2>
+        <p class="section-sub">The general process behind every report above, from first recon to disclosure.</p>
+      </div>
+      <div class="approach-grid observe">
+        <div class="approach-card"><div class="approach-num">01</div><h4>Recon &amp; mapping</h4><p>Enumerate subdomains, endpoints and parameters before touching anything — understand the attack surface first.</p></div>
+        <div class="approach-card"><div class="approach-num">02</div><h4>Access &amp; auth review</h4><p>Check who can reach what: broken access control, session handling, and 2FA/password-reset flows.</p></div>
+        <div class="approach-card"><div class="approach-num">03</div><h4>Business logic</h4><p>Look past the obvious checklist for flaws in how the application is actually supposed to behave.</p></div>
+        <div class="approach-card"><div class="approach-num">04</div><h4>Exploit &amp; document</h4><p>Build a minimal, reproducible proof of concept with clear steps, requests, and impact — no guesswork for the triager.</p></div>
+        <div class="approach-card"><div class="approach-num">05</div><h4>Responsible disclosure</h4><p>Report through the program's official channel only, and stay within defined scope at every step.</p></div>
       </div>
     </div>
   </section>
@@ -145,6 +215,7 @@
   <section id="bugbounty">
     <div class="wrap">
       <div class="section-head observe">
+        <span class="section-eyebrow">04 · Track record</span>
         <h2 class="section-title">Bug bounty experience</h2>
         <p class="section-sub">20 reports submitted across 8 public programs. Shown below are the ones closed as Duplicate or Informative — each still confirms the vulnerability class was real, even where another researcher got there first or the program didn't see a demonstrated security impact.</p>
       </div>
@@ -310,8 +381,9 @@
   <section id="badges">
     <div class="wrap">
       <div class="section-head observe">
+        <span class="section-eyebrow">05 · Proof</span>
         <h2 class="section-title">Badges &amp; achievements</h2>
-        <p class="section-sub">Every badge here was earned on the platform named on its group. Nothing is self-issued.</p>
+        <p class="section-sub">Every badge here was earned on the platform named on its group. Nothing is self-issued. Click any badge for a closer look.</p>
       </div>
 
       <!-- HackerOne (featured) -->
@@ -363,7 +435,9 @@
   <section id="projects">
     <div class="wrap">
       <div class="section-head observe">
+        <span class="section-eyebrow">06 · Build log</span>
         <h2 class="section-title">University projects</h2>
+        <p class="section-sub">Click any card for the full breakdown.</p>
       </div>
 
       <div class="filter-row observe" id="filterRow" role="tablist" aria-label="Filter projects">
@@ -376,58 +450,67 @@
 
       <div class="project-grid observe" id="projectGrid">
 
-        <div class="project-card" data-cat="security">
+        <div class="project-card" data-cat="security" data-project="vault">
           <div class="project-meta-row"><span class="project-title">Secure File Vault</span><span class="project-cat">Info Security</span></div>
           <p class="project-desc">AES-256-CBC file encryption with an RSA-2048 protected key, SHA-256 integrity checks, password strength validation, and auto-shred after repeated failed attempts.</p>
           <div class="project-tags"><span class="project-tag">C++</span><span class="project-tag">AES-256</span><span class="project-tag">RSA-2048</span></div>
+          <span class="project-more">Read more <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
         </div>
 
-        <div class="project-card" data-cat="systems">
+        <div class="project-card" data-cat="systems" data-project="triage">
           <div class="project-meta-row"><span class="project-title">Patient Triage System</span><span class="project-cat">Data Structures</span></div>
           <p class="project-desc">A custom Max-Heap built from scratch over a raw dynamic array (no STL) for real-time emergency patient prioritization, with a FIFO overflow queue.</p>
           <div class="project-tags"><span class="project-tag">C++</span><span class="project-tag">Max-Heap</span></div>
+          <span class="project-more">Read more <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
         </div>
 
-        <div class="project-card" data-cat="web">
+        <div class="project-card" data-cat="web" data-project="namaz">
           <div class="project-meta-row"><span class="project-title">Namaz Qaza Tracker</span><span class="project-cat">Database Systems</span></div>
           <p class="project-desc">Full-stack PHP/MySQL app with role-based dashboards, an enrollment approval workflow, class scheduling, and a live AJAX prayer counter.</p>
           <div class="project-tags"><span class="project-tag">PHP</span><span class="project-tag">MySQL</span><span class="project-tag">AJAX</span></div>
+          <span class="project-more">Read more <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
         </div>
 
-        <div class="project-card" data-cat="systems">
+        <div class="project-card" data-cat="systems" data-project="realestate">
           <div class="project-meta-row"><span class="project-title">Real Estate Management System</span><span class="project-cat">OOP</span></div>
           <p class="project-desc">A C++ console app modeling property listings and transactions, demonstrating inheritance, polymorphism, composition, and aggregation.</p>
           <div class="project-tags"><span class="project-tag">C++</span><span class="project-tag">OOP</span></div>
+          <span class="project-more">Read more <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
         </div>
 
-        <div class="project-card" data-cat="systems">
+        <div class="project-card" data-cat="systems" data-project="snake">
           <div class="project-meta-row"><span class="project-title">Snake Game in Assembly</span><span class="project-cat">COAL</span></div>
           <p class="project-desc">Classic Snake built in x86 Assembly with EMU8086, using BIOS interrupts for real-time keyboard input and rendering.</p>
           <div class="project-tags"><span class="project-tag">x86 Assembly</span><span class="project-tag">EMU8086</span></div>
+          <span class="project-more">Read more <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
         </div>
 
-        <div class="project-card" data-cat="systems">
+        <div class="project-card" data-cat="systems" data-project="address">
           <div class="project-meta-row"><span class="project-title">Address Book Management System</span><span class="project-cat">PF</span></div>
           <p class="project-desc">A file-handling C++ app with full CRUD, input validation, and persistent text-file storage.</p>
           <div class="project-tags"><span class="project-tag">C++</span><span class="project-tag">File Handling</span></div>
+          <span class="project-more">Read more <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
         </div>
 
-        <div class="project-card" data-cat="embedded">
+        <div class="project-card" data-cat="embedded" data-project="water">
           <div class="project-meta-row"><span class="project-title">Water Level Detector</span><span class="project-cat">DLD</span></div>
           <p class="project-desc">An Arduino UNO system using five LEDs to indicate rising water levels, with a buzzer alert at maximum level.</p>
           <div class="project-tags"><span class="project-tag">Arduino</span><span class="project-tag">Embedded</span></div>
+          <span class="project-more">Read more <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
         </div>
 
-        <div class="project-card" data-cat="systems">
+        <div class="project-card" data-cat="systems" data-project="university">
           <div class="project-meta-row"><span class="project-title">University Management System</span><span class="project-cat">ITC</span></div>
           <p class="project-desc">A C++ console app handling personal info, academic records, department selection, and fee challan generation.</p>
           <div class="project-tags"><span class="project-tag">C++</span></div>
+          <span class="project-more">Read more <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
         </div>
 
-        <div class="project-card" data-cat="embedded">
+        <div class="project-card" data-cat="embedded" data-project="ir">
           <div class="project-meta-row"><span class="project-title">IR Remote LED Controller</span><span class="project-cat">Electronics</span></div>
           <p class="project-desc">A block-code embedded project controlling LEDs through IR remote button mapping.</p>
           <div class="project-tags"><span class="project-tag">Embedded</span><span class="project-tag">Arduino</span></div>
+          <span class="project-more">Read more <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
         </div>
 
       </div>
@@ -438,6 +521,7 @@
   <section id="education">
     <div class="wrap">
       <div class="section-head observe">
+        <span class="section-eyebrow">07 · Background</span>
         <h2 class="section-title">Education</h2>
       </div>
       <div class="edu-card observe">
@@ -450,10 +534,28 @@
     </div>
   </section>
 
+  <!-- ================= NOW ================= -->
+  <section id="now">
+    <div class="wrap">
+      <div class="section-head observe">
+        <span class="section-eyebrow">08 · Right now</span>
+        <h2 class="section-title">What I'm focused on</h2>
+        <p class="section-sub">A quick snapshot of where my time is going at the moment.</p>
+      </div>
+      <div class="now-grid observe">
+        <div class="now-card"><div class="now-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></div><div><h4>Hack The Box Academy</h4><p>Working through more modules toward my first lab/machine solve.</p></div></div>
+        <div class="now-card"><div class="now-icon"><i class="fas fa-bug" aria-hidden="true"></i></div><div><h4>Active bug hunting</h4><p>Continuing to research in-scope targets across my current HackerOne programs.</p></div></div>
+        <div class="now-card"><div class="now-icon"><i class="fas fa-diagram-project" aria-hidden="true"></i></div><div><h4>GraphQL security</h4><p>Going deeper on GraphQL-specific access control and introspection issues.</p></div></div>
+        <div class="now-card"><div class="now-icon"><i class="fas fa-book" aria-hidden="true"></i></div><div><h4>MS applications</h4><p>Researching MS in Cyber Security programs for after graduation.</p></div></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= CV ================= -->
   <section id="cv">
     <div class="wrap">
       <div class="section-head observe">
+        <span class="section-eyebrow">09 · Resume</span>
         <h2 class="section-title">Curriculum vitae</h2>
         <p class="section-sub">Read it in the browser or download a copy.</p>
       </div>
@@ -477,7 +579,7 @@
         <h2>Let's talk security</h2>
         <p>Open to internships, CTF collaborations, and bug bounty conversations. Reach out through any of these.</p>
         <div class="contact-links">
-          <a class="contact-link" href="mailto:alyhsan.x@gmail.com"><i class="fas fa-envelope" aria-hidden="true"></i> alyhsan.x@gmail.com</a>
+          <a class="contact-link" href="mailto:alyhsan.x@gmail.com" data-copy="alyhsan.x@gmail.com"><i class="fas fa-envelope" aria-hidden="true"></i> alyhsan.x@gmail.com</a>
           <a class="contact-link" href="https://hackerone.com/alyhasn?type=user" target="_blank" rel="noopener noreferrer"><i class="fas fa-bug" aria-hidden="true"></i> HackerOne</a>
           <a class="contact-link" href="https://profile.hackthebox.com/profile/019f0f6d-dca3-722c-98c7-1a443e935b9d" target="_blank" rel="noopener noreferrer"><i class="fas fa-square-h" aria-hidden="true"></i> Hack The Box</a>
           <a class="contact-link" href="https://github.com/alyhasn" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a>
@@ -489,7 +591,101 @@
 
 </main>
 
-<footer>Built on GitHub Pages.</footer>
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#bugbounty">Bug Bounty</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#cv">CV</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Elsewhere</h5>
+        <ul>
+          <li><a href="https://hackerone.com/alyhasn?type=user" target="_blank" rel="noopener noreferrer">HackerOne</a></li>
+          <li><a href="https://github.com/alyhasn" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/alyhasn" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Quick tips</h5>
+        <ul>
+          <li class="kbd-hint"><kbd>Ctrl</kbd>+<kbd>K</kbd> to search</li>
+          <li class="kbd-hint"><kbd>?</kbd> for shortcuts</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="footYear">2026</span> Ali Hassan. Built on GitHub Pages.</span>
+      <span>Dark / Light theme · No tracking, no ads.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- scroll-to-top with a circular progress ring -->
+<button class="to-top" id="toTop" aria-label="Back to top">
+  <svg viewBox="0 0 50 50" aria-hidden="true">
+    <circle class="tt-bg" cx="25" cy="25" r="22"></circle>
+    <circle class="tt-fg" id="toTopRing" cx="25" cy="25" r="22"></circle>
+  </svg>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</button>
+
+<!-- ================= MODALS ================= -->
+
+<div class="modal-backdrop" id="projectModal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-label="Project details">
+    <button class="modal-close" aria-label="Close"><i class="fas fa-xmark" aria-hidden="true"></i></button>
+    <span class="modal-eyebrow pm-cat">Category</span>
+    <h3 class="pm-title">Project title</h3>
+    <p class="pm-desc">Description</p>
+    <ul class="pm-list"></ul>
+    <div class="modal-tags pm-tags"></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="badgeModal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-label="Badge details" style="text-align:center">
+    <button class="modal-close" aria-label="Close"><i class="fas fa-xmark" aria-hidden="true"></i></button>
+    <img class="modal-img bm-img" alt="">
+    <h3 class="bm-title">Badge name</h3>
+    <p class="bm-desc">Description</p>
+    <div class="modal-eyebrow bm-meta" style="margin-top:14px"></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="shortcutsModal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">
+    <button class="modal-close" aria-label="Close"><i class="fas fa-xmark" aria-hidden="true"></i></button>
+    <span class="modal-eyebrow">Keyboard shortcuts</span>
+    <h3>Move around faster</h3>
+    <ul>
+      <li><span class="kbd-hint"><kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>K</kbd></span> — open the command palette</li>
+      <li><span class="kbd-hint"><kbd>?</kbd></span> — open this shortcuts panel</li>
+      <li><span class="kbd-hint"><kbd>Esc</kbd></span> — close any open panel or menu</li>
+      <li><span class="kbd-hint"><kbd>↑</kbd> / <kbd>↓</kbd></span> — move through command palette results</li>
+    </ul>
+  </div>
+</div>
+
+<div class="modal-backdrop cmdk-backdrop" id="cmdkModal" aria-hidden="true">
+  <div class="modal-box cmdk-box" role="dialog" aria-modal="true" aria-label="Command palette">
+    <div class="cmdk-input-row">
+      <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+      <input type="text" id="cmdkInput" placeholder="Jump to a section, project, or action…" autocomplete="off" spellcheck="false">
+      <button class="modal-close" aria-label="Close" style="position:static;width:30px;height:30px"><i class="fas fa-xmark" aria-hidden="true"></i></button>
+    </div>
+    <div class="cmdk-results" id="cmdkResults"></div>
+    <div class="cmdk-footer">
+      <span>↑↓ navigate · ↵ select</span>
+      <span>Esc to close</span>
+    </div>
+  </div>
+</div>
 
 <script defer src="assets/js/main.js"></script>
 <script defer src="assets/js/animations.js"></script>
