@@ -133,15 +133,17 @@ renderCompetencies();
   /* ---- theme toggle (persists via localStorage) ---- */
   var themeBtn = document.getElementById('themeToggle');
   function applyTheme(t){ html.setAttribute('data-theme', t); try{ localStorage.setItem('ah-theme', t); }catch(e){} }
-  (function initTheme(){
-    var saved = null;
-    try{ saved = localStorage.getItem('ah-theme'); }catch(e){}
-    if(saved){ applyTheme(saved); }
-    else if(window.matchMedia('(prefers-color-scheme: light)').matches){ applyTheme('light'); }
-  })();
-  if(themeBtn) themeBtn.addEventListener('click', function(){
-    applyTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
-  });
+  try{
+    (function initTheme(){
+      var saved = null;
+      try{ saved = localStorage.getItem('ah-theme'); }catch(e){}
+      if(saved){ applyTheme(saved); }
+      else if(window.matchMedia('(prefers-color-scheme: light)').matches){ applyTheme('light'); }
+    })();
+    if(themeBtn) themeBtn.addEventListener('click', function(){
+      applyTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+    });
+  }catch(e){ console.warn('[portfolio] theme toggle init failed:', e); }
 
   /* ---- toast notifications ---- */
   var toastStack = document.getElementById('toastStack');
@@ -198,43 +200,50 @@ renderCompetencies();
   var toggle = document.getElementById('navToggle');
   var nav = document.getElementById('siteNav');
   var backdrop = document.getElementById('navBackdrop');
+  var navLinks = [], sections = [];
 
-  function openNav(){
-    nav.classList.add('open'); backdrop.classList.add('show'); lockScroll();
-    toggle.querySelector('i').className = 'fas fa-xmark';
-    toggle.setAttribute('aria-expanded', 'true');
-  }
-  function closeNav(){
-    if(!nav.classList.contains('open')) return;
-    nav.classList.remove('open'); backdrop.classList.remove('show'); unlockScroll();
-    toggle.querySelector('i').className = 'fas fa-bars';
-    toggle.setAttribute('aria-expanded', 'false');
-  }
-  toggle.addEventListener('click', function(){ nav.classList.contains('open') ? closeNav() : openNav(); });
-  backdrop.addEventListener('click', closeNav);
-  nav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeNav); });
-  window.addEventListener('resize', raf(function(){
-    if(window.innerWidth > 980 && nav.classList.contains('open')) closeNav();
-  }));
+  try{
+    function openNav(){
+      nav.classList.add('open'); backdrop.classList.add('show'); lockScroll();
+      toggle.querySelector('i').className = 'fas fa-xmark';
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+    function closeNav(){
+      if(!nav.classList.contains('open')) return;
+      nav.classList.remove('open'); backdrop.classList.remove('show'); unlockScroll();
+      toggle.querySelector('i').className = 'fas fa-bars';
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+    toggle.addEventListener('click', function(){ nav.classList.contains('open') ? closeNav() : openNav(); });
+    backdrop.addEventListener('click', closeNav);
+    nav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeNav); });
+    window.addEventListener('resize', raf(function(){
+      if(window.innerWidth > 980 && nav.classList.contains('open')) closeNav();
+    }));
+  }catch(e){ console.warn('[portfolio] mobile nav init failed:', e); }
 
-  /* ---- active link on scroll + right-edge dot nav sync ---- */
-  var navLinks = Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]'));
-  var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); });
-  var dotBtns = $all('.dot-nav button');
-  function updateActive(){
-    var pos = window.scrollY + 160, idx = 0;
-    sections.forEach(function(sec, i){ if(sec && sec.offsetTop <= pos) idx = i; });
-    navLinks.forEach(function(a, i){ a.classList.toggle('active', i === idx); });
-    dotBtns.forEach(function(d){ d.classList.toggle('active', d.getAttribute('data-target') === (sections[idx] && '#' + sections[idx].id)); });
-  }
-  document.addEventListener('scroll', raf(updateActive), { passive:true });
-  updateActive();
-  dotBtns.forEach(function(d){
-    d.addEventListener('click', function(){
-      var target = document.querySelector(d.getAttribute('data-target'));
-      if(target) target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+  /* ---- active link on scroll + right-edge dot nav sync ----
+     Kept in its own try/catch: a problem here should never be able to
+     take down the mobile nav above it or anything registered below it. */
+  try{
+    navLinks = Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]'));
+    sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+    var dotBtns = $all('.dot-nav button');
+    function updateActive(){
+      var pos = window.scrollY + 160, idx = 0;
+      sections.forEach(function(sec, i){ if(sec && sec.offsetTop <= pos) idx = i; });
+      navLinks.forEach(function(a, i){ a.classList.toggle('active', i === idx); });
+      dotBtns.forEach(function(d){ d.classList.toggle('active', d.getAttribute('data-target') === (sections[idx] && '#' + sections[idx].id)); });
+    }
+    document.addEventListener('scroll', raf(updateActive), { passive:true });
+    updateActive();
+    dotBtns.forEach(function(d){
+      d.addEventListener('click', function(){
+        var target = document.querySelector(d.getAttribute('data-target'));
+        if(target) target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+      });
     });
-  });
+  }catch(e){ console.warn('[portfolio] dot-nav init failed:', e); }
 
   /* ---- reveal on scroll ---- */
   var io = new IntersectionObserver(function(entries){
@@ -408,6 +417,7 @@ renderCompetencies();
 
   /* ---- command palette (Ctrl/Cmd+K) ---- */
   var cmdk = document.getElementById('cmdkModal');
+  try{
   if(cmdk){
     var cmdkInput = document.getElementById('cmdkInput');
     var cmdkResults = document.getElementById('cmdkResults');
@@ -451,6 +461,7 @@ renderCompetencies();
       btn.addEventListener('click', function(){ renderResults(); openModal(cmdk); setTimeout(function(){ cmdkInput.focus(); }, 50); });
     });
   }
+  }catch(e){ console.warn('[portfolio] command palette init failed:', e); }
 
   /* ---- CV preview (loads the PDF only when asked) ---- */
   var cvBtn = document.getElementById('cvToggle');
