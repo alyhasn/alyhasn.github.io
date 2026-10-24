@@ -1,4 +1,4 @@
-/* animations.css: entrance, stagger, idle motion */
+/* animations.css: entrance, stagger, idle motion, micro-interactions */
 :root{--ease:cubic-bezier(.22,1,.36,1)}
 body{animation:pageIn .7s var(--ease) both}
 @keyframes pageIn{from{opacity:0}}
@@ -11,15 +11,23 @@ body{animation:pageIn .7s var(--ease) both}
 @keyframes wobble{0%,100%{rotate:0deg}25%{rotate:-14deg}60%{rotate:10deg}}
 @keyframes rippleOut{to{transform:scale(1);opacity:0}}
 @keyframes fadeScaleIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes popBadge{0%{transform:scale(.85);opacity:0}60%{transform:scale(1.04)}100%{transform:scale(1);opacity:1}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 0 0 rgba(53,208,192,.4)}50%{box-shadow:0 0 0 6px rgba(53,208,192,0)}}
+@keyframes dropConfetti{0%{transform:translateY(-10vh) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(540deg);opacity:0}}
+@keyframes flashSuccess{0%{background-color:rgba(53,208,192,.25)}100%{background-color:transparent}}
 
 /* staggered entrance (JS sets --i on children). backwards fill = hover still works after */
-.observe.in .stat-card,.observe.in .skill-chip,.observe.in .project-card,.observe.in .badge-card:not(.featured){
+.observe.in .stat-card,.observe.in .skill-chip,.observe.in .project-card,.observe.in .badge-card:not(.featured),
+.observe.in .approach-card,.observe.in .now-card{
   animation:popIn .65s var(--ease) backwards;animation-delay:calc(var(--i,0)*70ms)}
 .observe.in .tl-item{animation:slideR .7s var(--ease) backwards;animation-delay:calc(var(--i,0)*110ms)}
 .observe.in .tl-item:nth-child(odd){animation-name:slideL}
 .about-text.in p{animation:slideL .7s var(--ease) backwards;animation-delay:calc(var(--i,0)*130ms)}
 .observe.in .tl-dot{animation:popIn .5s var(--ease) backwards;animation-delay:calc(var(--i,0)*110ms + 220ms)}
 .project-card.pop{animation:popIn .5s var(--ease) backwards;animation-delay:calc(var(--i,0)*50ms)}
+.modal-backdrop.show .badge-card{animation:popBadge .4s var(--ease) both}
 
 /* section underline grows, timeline line draws */
 .section-head::after{width:0;transition:width .9s .25s var(--ease)}
@@ -38,6 +46,24 @@ body{animation:pageIn .7s var(--ease) both}
 .badge-card:nth-child(3n) .badge-img img{animation-delay:-3s}
 .skill-chip:hover i{animation:wobble .6s}
 .progress-bar{box-shadow:0 0 12px rgba(53,208,192,.6)}
+.logo .dot, .icon-btn.theme-toggle:hover i{animation-duration:2.4s}
 
 /* mobile nav panel + backdrop fade/scale */
 .nav-backdrop.show{animation:fadeScaleIn .28s var(--ease) both}
+.modal-backdrop.show{animation:fadeScaleIn .22s var(--ease) both}
+
+/* preloader spinner ring */
+.pre-ring{ width:34px; height:34px; border-radius:50%; border:3px solid var(--panel-2); border-top-color:var(--cyan); animation:spin .8s linear infinite; }
+
+/* bar fill shimmer while animating */
+.bar-fill{ background-size:200% 100%; }
+.bar-fill.animating{ animation:shimmer 1.4s linear infinite; }
+
+/* stat card flash once counters finish */
+.stat-card.done{ animation:flashSuccess 1s ease-out; }
+
+/* confetti particles */
+.confetti-piece{ position:absolute; top:-10px; width:8px; height:14px; animation:dropConfetti linear forwards; }
+
+/* toast entrance handled in JS via .show, glow pulse available for emphasis */
+.icon-btn:focus-visible{ animation:glowPulse 1.4s ease-out; }
