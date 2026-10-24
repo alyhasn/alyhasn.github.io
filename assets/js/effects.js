@@ -1,4 +1,4 @@
-/* effects.js: ripple, tilt, magnetic, parallax, cursor glow, header hide, back-to-top */
+/* effects.js: ripple, tilt, magnetic, parallax, cursor glow + dot, header hide, back-to-top */
 (function(){
   var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
@@ -6,7 +6,7 @@
 
   /* click ripple */
   if(!rm) document.addEventListener('pointerdown',function(e){
-    var t=e.target.closest&&e.target.closest('.btn,.filter-btn,.contact-link,.nav-cta');
+    var t=e.target.closest&&e.target.closest('.btn,.filter-btn,.contact-link,.nav-cta,.icon-btn');
     if(!t) return;
     var r=t.getBoundingClientRect(),s=Math.max(r.width,r.height)*2,d=document.createElement('span');
     d.className='ripple';
@@ -14,19 +14,13 @@
     t.appendChild(d);setTimeout(function(){d.remove();},700);
   },{passive:true});
 
-  /* back-to-top + hide header on scroll down (one rAF-throttled listener).
-     Header never hides while the mobile menu is open, so the close button stays reachable. */
-  var top=document.createElement('button');
-  top.className='to-top';top.setAttribute('aria-label','Back to top');
-  top.innerHTML='<i class="fas fa-arrow-up" aria-hidden="true"></i>';
-  top.onclick=function(){scrollTo({top:0,behavior:'smooth'});};
-  document.body.appendChild(top);
+  /* header hides on scroll-down, shows on scroll-up — paused while the
+     mobile menu is open so the close control stays reachable */
   var header=document.getElementById('siteHeader'),nav=document.getElementById('siteNav'),last=0,tick=false;
   addEventListener('scroll',function(){
     if(tick) return; tick=true;
     requestAnimationFrame(function(){
       var y=scrollY;
-      top.classList.toggle('show',y>600);
       if(header&&!(nav&&nav.classList.contains('open'))) header.classList.toggle('hide',y>last&&y>200);
       last=y;tick=false;
     });
@@ -35,7 +29,7 @@
   if(rm||!fine) return;
 
   /* 3D tilt on cards */
-  var T='.project-card,.badge-card:not(.featured):not(.locked),.stat-card,.bb-card';
+  var T='.project-card,.badge-card:not(.featured):not(.locked),.stat-card,.bb-card,.approach-card,.now-card';
   $(T).forEach(function(c){
     c.classList.add('tilt');
     c.addEventListener('mousemove',function(e){
@@ -47,7 +41,7 @@
   });
 
   /* magnetic buttons */
-  $('.btn-primary,.social-row a,.nav-cta').forEach(function(el){
+  $('.btn-primary,.social-row a,.social-row button,.nav-cta').forEach(function(el){
     el.classList.add('mag');
     el.addEventListener('mousemove',function(e){
       var r=el.getBoundingClientRect();
@@ -73,7 +67,7 @@
     hp.addEventListener('mouseleave',reset);
   }
 
-  /* cursor glow: rAF loop runs only while catching up */
+  /* ambient cursor glow: rAF loop runs only while catching up */
   var g=document.createElement('div');g.className='cursor-glow';document.body.appendChild(g);
   var gx=0,gy=0,tx=0,ty=0,run=false;
   function loop(){
@@ -81,8 +75,19 @@
     g.style.transform='translate('+gx.toFixed(1)+'px,'+gy.toFixed(1)+'px)';
     if(Math.abs(tx-gx)>.5||Math.abs(ty-gy)>.5) requestAnimationFrame(loop); else run=false;
   }
+
+  /* small precise cursor dot that grows over clickable elements — a subtle,
+     professional touch rather than a full custom-cursor replacement */
+  var dot=document.createElement('div');dot.className='cursor-dot';document.body.appendChild(dot);
+  var CLICKABLE='a,button,.btn,.filter-btn,.project-card,.badge-card,.skill-chip,.stat-card,input,.contact-link';
+
   addEventListener('mousemove',function(e){
     tx=e.clientX;ty=e.clientY;
     if(!run){run=true;requestAnimationFrame(loop);}
+    dot.style.transform='translate('+e.clientX+'px,'+e.clientY+'px)';
+    dot.classList.toggle('on-link', !!(e.target.closest && e.target.closest(CLICKABLE)));
   },{passive:true});
+
+  document.addEventListener('mouseleave',function(){ dot.style.opacity='0'; g.style.opacity='0'; });
+  document.addEventListener('mouseenter',function(){ dot.style.opacity='1'; g.style.opacity='1'; });
 })();
