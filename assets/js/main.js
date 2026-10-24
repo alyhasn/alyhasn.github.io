@@ -428,7 +428,7 @@ renderCompetencies();
     });
     items.push({ label:'Toggle light / dark theme', sub:'Action', icon:'fa-circle-half-stroke', action:function(){ themeBtn && themeBtn.click(); } });
     items.push({ label:'Copy email address', sub:'Action', icon:'fa-envelope', action:function(){ var el = document.querySelector('[data-copy]'); el && el.click(); } });
-    items.push({ label:'Download CV (PDF)', sub:'Action', icon:'fa-download', action:function(){ var a = document.createElement('a'); a.href = 'assets/docs/cv.pdf'; a.download = ''; a.click(); } });
+    items.push({ label:'Download CV (PDF)', sub:'Action', icon:'fa-download', action:function(){ var a = document.createElement('a'); a.href = 'assets/docs/Ali_Hassan.pdf'; a.download = ''; a.click(); } });
     items.push({ label:'Open HackerOne profile', sub:'Link', icon:'fa-bug', action:function(){ window.open('https://hackerone.com/alyhasn?type=user', '_blank', 'noopener'); } });
     items.push({ label:'Open GitHub profile', sub:'Link', icon:'fa-github', action:function(){ window.open('https://github.com/alyhasn', '_blank', 'noopener'); } });
 
