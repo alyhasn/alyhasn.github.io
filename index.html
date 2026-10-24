@@ -29,6 +29,20 @@
   <div class="pre-mark">loading portfolio…</div>
   <div class="pre-bar"><i></i></div>
 </div>
+<script>
+/* Preloader failsafe — deliberately inline and independent of main.js.
+   Hides the preloader on window "load" as normal, but also force-hides it
+   after 2.5s no matter what, so a slow/blocked/stale script can never
+   leave a visitor staring at the spinner forever. */
+(function(){
+  function hidePreloader(){
+    var p = document.getElementById('preloader');
+    if(p) p.classList.add('done');
+  }
+  window.addEventListener('load', hidePreloader);
+  setTimeout(hidePreloader, 2500);
+})();
+</script>
 
 <div id="confettiLayer" aria-hidden="true"></div>
 <div id="toastStack" aria-live="polite"></div>
