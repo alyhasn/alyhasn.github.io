@@ -1,9 +1,12 @@
-/* effects.css: hover, click, tilt, magnetic, cursor glow */
+/* effects.css: hover, click, tilt, magnetic, cursor glow, modal/body lock */
 header{transition:transform .45s var(--ease)}
 header.hide{transform:translateY(-120%)}
 nav a{transition:color .25s,transform .25s,background .25s}
 nav a:not(.nav-cta):hover{transform:translateY(-2px)}
 @media (max-width:980px){ nav a:not(.nav-cta):hover{ transform:none; } }
+
+/* lock body scroll behind any open overlay (modal, command palette) */
+html.overlay-locked, html.overlay-locked body{ overflow:hidden; height:100%; touch-action:none; }
 
 /* 3D tilt (JS sets --rx/--ry); overrides the plain hover lift */
 .tilt,.tilt:hover{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0px));
@@ -11,16 +14,17 @@ nav a:not(.nav-cta):hover{transform:translateY(-2px)}
 .tilt:hover{--ty:-6px}
 
 /* shine sweep on hover */
-.btn::before,.badge-card::before,.project-card::before,.bb-card::before,.stat-card::before{
+.btn::before,.badge-card::before,.project-card::before,.bb-card::before,.stat-card::before,.approach-card::before,.now-card::before{
   content:'';position:absolute;top:0;bottom:0;left:-90%;width:50%;z-index:2;pointer-events:none;
   background:linear-gradient(100deg,transparent,rgba(255,255,255,.16),transparent);
   transform:skewX(-20deg);transition:left .7s var(--ease)}
-.btn:hover::before,.badge-card:hover::before,.project-card:hover::before,.bb-card:hover::before,.stat-card:hover::before{left:140%}
+.btn:hover::before,.badge-card:hover::before,.project-card:hover::before,.bb-card:hover::before,.stat-card:hover::before,
+.approach-card:hover::before,.now-card:hover::before{left:140%}
 .badge-img img{transition:transform .4s var(--ease)}
 .badge-card:hover .badge-img img{transform:scale(1.1) rotate(-3deg)}
 
 /* click ripple */
-.btn,.filter-btn,.contact-link,nav a.nav-cta{position:relative;overflow:hidden}
+.btn,.filter-btn,.contact-link,nav a.nav-cta,.icon-btn{position:relative;overflow:hidden}
 .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);animation:rippleOut .65s ease-out forwards;pointer-events:none}
 .filter-btn:active,.contact-link:active{transform:scale(.94)}
 
@@ -33,12 +37,30 @@ nav a:not(.nav-cta):hover{transform:translateY(-2px)}
 
 .cursor-glow{position:fixed;left:0;top:0;width:340px;height:340px;margin:-170px 0 0 -170px;border-radius:50%;
   background:radial-gradient(circle,rgba(53,208,192,.13),transparent 65%);pointer-events:none;z-index:0;will-change:transform}
-.to-top{position:fixed;right:22px;bottom:22px;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);
-  background:rgba(18,26,46,.92);color:var(--cyan);cursor:pointer;z-index:800;opacity:0;pointer-events:none;
-  transform:translateY(16px) scale(.8);transition:opacity .3s,transform .35s var(--ease),border-color .25s}
-.to-top.show{opacity:1;pointer-events:auto;transform:none}
-.to-top:hover{border-color:var(--cyan);transform:translateY(-3px)}
+.cursor-dot{position:fixed;left:0;top:0;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--cyan);
+  pointer-events:none;z-index:1999;will-change:transform;transition:transform .12s ease, opacity .3s;}
+.cursor-dot.on-link{transform:scale(2.4);opacity:.55}
 
 /* mobile nav toggle icon micro-interaction */
 .nav-toggle i{transition:transform .25s var(--ease)}
 .nav-toggle[aria-expanded="true"] i{transform:rotate(90deg)}
+
+/* theme toggle icon swap */
+.theme-toggle i{transition:transform .3s var(--ease)}
+.theme-toggle:active i{transform:rotate(25deg) scale(.9)}
+
+/* command palette trigger pulse on first load */
+.cmdk-trigger{ position:relative; }
+.cmdk-trigger::after{
+  content:''; position:absolute; inset:-3px; border-radius:12px; border:1px solid var(--cyan); opacity:0;
+}
+
+/* dot nav indicator line connecting active dot (visual flourish) */
+.dot-nav{ position:fixed; }
+.dot-nav button{ will-change:transform; }
+
+/* copy button success state */
+.contact-link.copied{ border-color:var(--green); color:var(--green); }
+
+/* project / badge card keyboard focus ring matches hover affordance */
+.project-card:focus-visible,.badge-card:focus-visible{ border-color:var(--cyan); box-shadow:0 0 0 3px rgba(53,208,192,.25); }
